@@ -11,6 +11,10 @@ class Train(object):
         self.line = line
         self.destination = destination
 
+    def __str__(self):
+        train = str(self.train_number) + " to " + str(self.destination)
+        return train
+
     def get_last_stop(self):
         return self.stops[-1]
 

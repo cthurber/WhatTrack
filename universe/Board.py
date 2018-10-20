@@ -74,7 +74,9 @@ class Board(object):
 def main():
     fname = "../snag/cache/NYP_Departures_2018-09-25_22:18.html"
     board = Board(fname)
-    print(board.departures)
+
+    for departure in board.departures:
+        print(departure.train)
 
 if __name__ == "__main__":
     main()
