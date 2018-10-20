@@ -10,17 +10,7 @@ class Board(object):
 
     The Board should be "stored" in the database with methods called on each object to convert it to it's record
     """
-
-    # # TODO Add error handling for file note found
-    # def get_soup(self, file):
-    #
-    #     with open(file, 'r') as f:
-    #         page = f.read()
-    #
-    #     soup = Soup(page, "html.parser")
-    #     return soup
-
-    # TODO Add explanatory exceptions for parameters
+    
     def get_table(self):
         return self.soup.find("table", {"id" : "GridView1"})
 

@@ -1,7 +1,11 @@
 from uuid import uuid4
+from helper import get_soup
 
 class Stop(object):
-    """A class for a Stop on a New Jersey Transit train line"""
+    """
+    TODOs: Need to figure out how to get stops page as it's generated on the fly
+    """
+
 
     def get_name(self):
         pass
@@ -23,3 +27,22 @@ class Stop(object):
     # TODO Should return a dict as {'table' : 'table_name', 'values' : 'comma, separated, strings'}
     def to_record(self):
         pass
+
+    # NOTE abstract as class methods of Stop?
+    # TODO Should return the link from the departue page
+    @classmethod
+    def get_stop_link(self, train_number):
+        base_url = "http://dv.njtransit.com/mobile/train_stops.aspx?sid=NY&train=7245"
+        return base_url #+ "train_stops.aspx?sid=NY&train=" + str(train_number)
+
+    # TODO Should use return from 'get_stop_link' to get page, return soup
+    @classmethod
+    def get_stop_soup(self, train_number):
+        stop_page = self.get_stop_link(train_number)
+        return get_soup(stop_page)
+
+    # TODO should
+    @classmethod
+    def get_stops(self, train_number):
+        stop_soup = self.get_stop_soup(train_number)
+        print(stop_soup)
