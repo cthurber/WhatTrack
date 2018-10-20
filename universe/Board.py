@@ -21,27 +21,26 @@ class Board(object):
 
     # TODO Add explanatory exceptions for parameters
     def get_table(self):
-        contents = self.soup.find("table", {"id" : "GridView1"})
-        self.contents = contents
-        return contents
+        return self.soup.find("table", {"id" : "GridView1"})
 
     def __init__(self, from_file):
-        self.from_file = from_file
-        self.soup = self.get_soup(from_file)
-        self.table = self.get_table()
-        self.listings = self.get_listings()
-        self.departures = []
+        self.from_file = from_file              # HTML source file from which we'll be scraping our
+        self.soup = self.get_soup(from_file)    # Get entire page source as BeautifulSoup object
+        self.table = self.get_table()           # NOTE (Necessary?) Contains the source of the departure table on-page
+        self.departures = self.get_listings()   # Contains departure objects derived from 'listings'
 
     def get_listings(self):
 
-        listings = self.contents.find_all("tr")[1:]
+        listings = self.table.find_all("tr")[1:]
+        departures = []
 
         for listing in listings:
             # NOTE Silly fix... abstract this elsewhere; Move this to helper?
             if len(Soup(str(listing)).find_all("td")) == 6:
                 departure = Departure(Soup(str(listing)))
-                self.departures.append(departure)
-        print(self.departures)
+                departures.append(departure)
+
+        return departures
 
     def sweep():
         # TODO This function should run...
@@ -75,8 +74,7 @@ class Board(object):
 def main():
     fname = "../snag/cache/NYP_Departures_2018-09-25_22:18.html"
     board = Board(fname)
-    board.scrape()
-
+    print(board.departures)
 
 if __name__ == "__main__":
     main()
