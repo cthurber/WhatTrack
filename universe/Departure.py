@@ -1,5 +1,6 @@
 from uuid import uuid4
 from bs4 import BeautifulSoup as Soup
+from Train import Train
 
 class Departure(object):
     # TODO Define each attribute in docstring
@@ -28,12 +29,25 @@ class Departure(object):
     def get_status(self):
         return self.cells[5]
 
+    # NOTE abstract as class methods of Stop?
+    # TODO Should return the link from the departue page
+    def get_stop_link(self):
+        pass
+
+    # TODO Should use return from 'get_stop_link' to get page, return soup
+    def get_stop_soup(self):
+        pass
+
+    # TODO should
+    def get_stops(self):
+        pass
+
     # TODO Should return a dict as {'table' : 'table_name', 'values' : 'comma, separated, strings'}
     def to_record(self):
         pass
 
     def __str__(self):
-        departure = str(self.departure_time)  + ', ' + str(self.destination)  + ', ' + str(self.track)  + ', ' + str(self.line)  + ', ' + str(self.train_number)  + ', ' + str(self.status)
+        departure = str(self.departure_time)  + ', ' + str(self.train.destination)  + ', ' + str(self.track)  + ', ' + str(self.train.line)  + ', ' + str(self.train.train_number)  + ', ' + str(self.status)
         return departure
 
     def __init__(self, soup):
@@ -43,3 +57,4 @@ class Departure(object):
         self.track = self.get_track()
         self.status = self.get_status()
         self.train = Train(self.get_train_number(), self.get_line(), self.get_destination())
+        self.stop_link = self.get_stops()
