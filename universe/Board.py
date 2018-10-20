@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as Soup
 from Departure import Departure
+from helper import get_soup
 
 class Board(object):
     # TODO Define each attribute in docstring
@@ -10,22 +11,21 @@ class Board(object):
     The Board should be "stored" in the database with methods called on each object to convert it to it's record
     """
 
-    # TODO Add error handling for file note found
-    def get_soup(self, file):
-
-        with open(file, 'r') as f:
-            page = f.read()
-
-        soup = Soup(page, "html.parser")
-        return soup
+    # # TODO Add error handling for file note found
+    # def get_soup(self, file):
+    #
+    #     with open(file, 'r') as f:
+    #         page = f.read()
+    #
+    #     soup = Soup(page, "html.parser")
+    #     return soup
 
     # TODO Add explanatory exceptions for parameters
     def get_table(self):
         return self.soup.find("table", {"id" : "GridView1"})
 
     def __init__(self, from_file):
-        self.from_file = from_file              # HTML source file from which we'll be scraping our
-        self.soup = self.get_soup(from_file)    # Get entire page source as BeautifulSoup object
+        self.soup = get_soup(from_file)    # Get entire page source as BeautifulSoup object
         self.table = self.get_table()           # NOTE (Necessary?) Contains the source of the departure table on-page
         self.departures = self.get_listings()   # Contains departure objects derived from 'listings'
 
