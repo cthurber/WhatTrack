@@ -2,7 +2,18 @@ from uuid import uuid4
 
 class Stop(object):
     """A class for a Stop on a New Jersey Transit train line"""
-    def __init__(self, name, estimated_time, status):
+
+    def get_name(self):
+        pass
+
+    def get_estimated_time(self):
+        pass
+
+    def get_status(self):
+        pass
+
+    def __init__(self, soup):
+        self.cells = [str(cell.text).replace('\\r','').replace('\\n','').strip() for cell in soup.find_all("td")]
         self.stop_id = uuid4()
         self.name = name
         self.estimated_time = estimated_time
