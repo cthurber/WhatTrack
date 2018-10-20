@@ -29,19 +29,6 @@ class Departure(object):
     def get_status(self):
         return self.cells[5]
 
-    # NOTE abstract as class methods of Stop?
-    # TODO Should return the link from the departue page
-    def get_stop_link(self):
-        pass
-
-    # TODO Should use return from 'get_stop_link' to get page, return soup
-    def get_stop_soup(self):
-        pass
-
-    # TODO should
-    def get_stops(self):
-        pass
-
     # TODO Should return a dict as {'table' : 'table_name', 'values' : 'comma, separated, strings'}
     def to_record(self):
         pass
@@ -56,5 +43,4 @@ class Departure(object):
         self.departure_time = self.get_departure_time()
         self.track = self.get_track()
         self.status = self.get_status()
-        self.train = Train(self.get_train_number(), self.get_line(), self.get_destination())
-        self.stop_link = self.get_stops()
+        self.train = Train(self.get_train_number(), self.get_line(), self.get_destination(), soup)
